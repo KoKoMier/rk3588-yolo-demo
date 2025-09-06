@@ -1,0 +1,20 @@
+https://blog.csdn.net/weixin_45686120/article/details/143362531
+
+pip install rknn-toolkit2 -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+python convert.py ../model/my_yolov8n.onnx rk3588 i8 ../model/my_yolov8n.rknn
+
+cat << 'EOF' | sudo tee /etc/apt/sources.list.d/kaylordut.list 
+deb [signed-by=/etc/apt/keyrings/kaylor-keyring.gpg] http://apt.kaylordut.cn/kaylordut/ kaylordut main
+EOF
+sudo mkdir /etc/apt/keyrings -pv
+sudo wget -O /etc/apt/keyrings/kaylor-keyring.gpg http://apt.kaylordut.cn/kaylor-keyring.gpg
+sudo apt update
+sudo apt install kaylordut-dev libbytetrack
+
+ ./camera_demo -m ./yolov8.rknn -l ../model/coco_80_labels_list.txt -t 4 -i 1 -w 640 -h 480 -f 30
+
+ ./videofile_demo -m ./yolov8.rknn -i ../model/ships.mp4 -l ../model/coco_80_labels_list.txt -t 4 -f 30
+
+ ./imagefile_demo -m ./yolov8.rknn -i ./bus.jpg -l ../model/coco_80_labels_list.txt
+
